@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
-import {getNews, deleteNews} from './api/api';
+import {getNews, deleteNews, createNews} from './api/api';
 import './style.css';
 
 
@@ -22,18 +22,35 @@ function App() {
     setNews(inp_news)
   }
 
-  const NewsDeleteHandler = (inp_news) => {
-    deleteNews(inp_news.id)
+  const NewsDeleteHandler = async (inp_news) => {
+    await deleteNews(inp_news.id)
     setNewsArray((prevNewsArray) => 
       prevNewsArray.filter((item) => item.id !== inp_news.id)
     );
     setNews({})
   }
 
+  const NewsCreateHandler = async (title, subtitle, body) => {
+    const newsInfo = {
+      'title': title,
+      'subtitle': subtitle,
+      'body': body
+    }
+    const createdNews = await createNews(newsInfo);    
+    setNewsArray((prevNewsArray) => [...prevNewsArray, createdNews]);
+  }
+
   return (
     <>
       <Header title={"Новостной портал"}/>
-      <Main title={"Новости"} newsList={newsArray} NewsClickHandler={NewsClickHandler} currentNews={news} NewsDeleteHandler={NewsDeleteHandler}/>
+      <Main 
+        title={"Новости"} 
+        newsList={newsArray} 
+        NewsClickHandler={NewsClickHandler} 
+        currentNews={news} 
+        NewsDeleteHandler={NewsDeleteHandler} 
+        NewsCreateHandler={NewsCreateHandler}
+      />
     </>
   );
 }
