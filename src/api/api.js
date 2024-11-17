@@ -29,3 +29,16 @@ export const deleteNews = async (newsId) => {
     const response = await axios.delete(url);
     return response.data;
 };
+
+export const updateNews = async (news) => {
+    const payload = {
+        id: news.id,
+        title: news.title,
+        subtitle: news.subtitle,
+        body: news.body
+    };
+
+    
+    const response = await axios.put(`${URL}update`, payload);
+    return response.data;
+};

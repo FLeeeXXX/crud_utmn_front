@@ -1,48 +1,53 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
-import {getNews, deleteNews, createNews} from './api/api';
+import { getNews, deleteNews, createNews, updateNews } from './api/api';
 import './style.css';
-
 
 function App() {
   const [newsArray, setNewsArray] = useState([]);
   const [news, setNews] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchNews = async () => {
       const data = await getNews();
       setNewsArray(data);
+      setLoading(false);
     };
 
     fetchNews();
   }, []);
 
-  const NewsClickHandler = (inp_news) =>{
-    setNews(inp_news)
-  }
+  const NewsClickHandler = (inp_news) => {
+    setNews(inp_news);
+  };
 
   const NewsDeleteHandler = async (inp_news) => {
-    await deleteNews(inp_news.id)
+    await deleteNews(inp_news.id);
     setNewsArray((prevNewsArray) => 
       prevNewsArray.filter((item) => item.id !== inp_news.id)
     );
-    setNews({})
-  }
+    setNews({});
+  };
 
-  const NewsCreateHandler = async (title, subtitle, body) => {
-    const newsInfo = {
-      'title': title,
-      'subtitle': subtitle,
-      'body': body
-    }
-    const createdNews = await createNews(newsInfo);    
+  const NewsCreateHandler = async (createdNews) => {
+    await createNews(createdNews);    
     setNewsArray((prevNewsArray) => [...prevNewsArray, createdNews]);
-  }
+  };
+
+  const NewsUpdateHandler = async (updatedNews) => {
+    await updateNews(updatedNews);
+    setNewsArray((prevNewsArray) => 
+      prevNewsArray.map((item) => 
+        item.id === updatedNews.id ? { ...item, ...updatedNews } : item
+      )
+    );
+  };
 
   return (
     <>
-      <Header title={"Новостной портал"}/>
+      <Header title={"Новостной портал"} />
       <Main 
         title={"Новости"} 
         newsList={newsArray} 
@@ -50,6 +55,8 @@ function App() {
         currentNews={news} 
         NewsDeleteHandler={NewsDeleteHandler} 
         NewsCreateHandler={NewsCreateHandler}
+        NewsUpdateHandler={NewsUpdateHandler}
+        loading={loading}
       />
     </>
   );
