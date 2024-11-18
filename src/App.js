@@ -32,7 +32,7 @@ function App() {
   };
 
   const NewsCreateHandler = async (createdNews) => {
-    await createNews(createdNews);    
+    createdNews = await createNews(createdNews); 
     setNewsArray((prevNewsArray) => [...prevNewsArray, createdNews]);
   };
 
