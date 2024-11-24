@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
-const NewsModal = ({ newsInfo = null, closeNewsModal, NewsCreateHandler, NewsUpdateHandler, setUpdatedNewsInfo }) => {
+const NewsModal = ({ newsInfo = null, closeNewsModal, NewsCreateHandler, NewsUpdateHandler, setUpdatedNewsInfo, newsTypes }) => {
     const [title, setTitle] = useState(newsInfo ? newsInfo.title : '');
     const [subtitle, setSubtitle] = useState(newsInfo ? newsInfo.subtitle : '');
     const [body, setBody] = useState(newsInfo ? newsInfo.body : '');
+    const [newsType, setNewsType] = useState(newsInfo ? newsInfo.newsType : '');
 
     const handleClear = () => {
         setTitle('');
@@ -42,6 +43,18 @@ const NewsModal = ({ newsInfo = null, closeNewsModal, NewsCreateHandler, NewsUpd
             <div className="modal-content">
                 <span className="close" onClick={closeNewsModal}>&times;</span>
                 <h2>{newsInfo ? 'Обновить новость' : 'Добавить новость'}</h2>
+                <select 
+                    value={newsType} 
+                    onChange={(e) => setNewsType(e.target.value)} 
+                    required
+                >
+                    <option value="" disabled>Выберите тип новости</option>
+                    {/* {newsTypes.map((type) => (
+                        <option key={type.id} value={type.id}>
+                            {type.name}
+                        </option>
+                    ))} */}
+                </select>
                 <input
                     type="text"
                     id="news-title"
