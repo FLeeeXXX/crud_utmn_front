@@ -161,6 +161,29 @@ button:hover {
     border-radius: 8px;
 }
 
+.rating {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rating-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.rating-buttons button {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    width: 40px;
+    text-align: center;
+}
+
+
+
 .close {
     color: #aaa;
     float: right;

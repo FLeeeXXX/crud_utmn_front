@@ -8,7 +8,7 @@ function App() {
   const [newsArray, setNewsArray] = useState([]);
   const [news, setNews] = useState({});
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(() => {
     const fetchNews = async () => {
       const data = await getNews();
