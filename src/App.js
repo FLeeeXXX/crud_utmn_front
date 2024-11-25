@@ -38,12 +38,17 @@ function App() {
 
   const NewsUpdateHandler = async (updatedNews) => {
     await updateNews(updatedNews);
+    updateNewsArray(updatedNews)
+  };
+
+  const updateNewsArray = (updatedNews) =>{
     setNewsArray((prevNewsArray) => 
       prevNewsArray.map((item) => 
         item.id === updatedNews.id ? { ...item, ...updatedNews } : item
       )
     );
-  };
+  }
+
 
   return (
     <>
@@ -56,6 +61,7 @@ function App() {
         NewsDeleteHandler={NewsDeleteHandler} 
         NewsCreateHandler={NewsCreateHandler}
         NewsUpdateHandler={NewsUpdateHandler}
+        updateNewsArray={updateNewsArray}
         loading={loading}
       />
     </>

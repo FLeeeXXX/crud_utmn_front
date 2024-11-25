@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const URL_NEWS = "http://localhost:8000/news/";
+const URL_NEWS_RATING = "http://localhost:8000/news/rating/";
 const URL_NEWS_TYPES = "http://localhost:8000/news/types/";
 
 export const createNews = async (news) => {
@@ -44,6 +45,17 @@ export const updateNews = async (news) => {
 
     
     const response = await axios.put(`${URL_NEWS}update`, payload);
+    return response.data;
+};
+
+export const voteNews = async (news) => {
+    const payload = {
+        id: news.id,
+        rating: news.rating
+    };
+
+    
+    const response = await axios.post(`${URL_NEWS_RATING}add`, payload);
     return response.data;
 };
 

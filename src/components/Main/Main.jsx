@@ -3,7 +3,7 @@ import { isEmpty } from '../../utils/utils';
 import News from '../News/News';
 import NewsModal from '../NewsModal/NewsModal';
 
-const Main = ({ title, newsList, NewsClickHandler, currentNews, NewsDeleteHandler, NewsCreateHandler, NewsUpdateHandler, loading }) => {
+const Main = ({ title, newsList, NewsClickHandler, currentNews, NewsDeleteHandler, NewsCreateHandler, NewsUpdateHandler, loading, updateNewsArray }) => {
     const [viewModal, setViewModal] = useState(false);
 
     const addNewsHandler = () => {
@@ -17,7 +17,7 @@ const Main = ({ title, newsList, NewsClickHandler, currentNews, NewsDeleteHandle
     return (
         <main>
             {!isEmpty(currentNews) ? (
-                <News NewsClickHandler={NewsClickHandler} currentNews={currentNews} NewsDeleteHandler={NewsDeleteHandler} NewsUpdateHandler={NewsUpdateHandler} />
+                <News NewsClickHandler={NewsClickHandler} currentNews={currentNews} NewsDeleteHandler={NewsDeleteHandler} NewsUpdateHandler={NewsUpdateHandler} updateNewsArray={updateNewsArray}/>
             ) : (
                 <section id="news-list">
                     {viewModal && <NewsModal closeNewsModal={closeNewsModal} NewsCreateHandler={NewsCreateHandler} />}
