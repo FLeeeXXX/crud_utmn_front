@@ -3,6 +3,7 @@ import axios from 'axios';
 const URL_NEWS = "http://localhost:8000/news/";
 const URL_NEWS_RATING = "http://localhost:8000/news/rating/";
 const URL_NEWS_TYPES = "http://localhost:8000/news/types/";
+const URL_NEWS_REVIEWS = "http://localhost:8000/news/comments/";
 
 export const createNews = async (news) => {
     const payload = {
@@ -63,5 +64,25 @@ export const getNewsTypes = async () => {
     const url = `${URL_NEWS_TYPES}get`;
     
     const response = await axios.get(url);
+    return response.data;
+};
+
+
+export const getReviews = async (news) => {
+    const url = `${URL_NEWS_REVIEWS}get?news_id=${news.id}`;
+    
+    const response = await axios.get(url);
+    return response.data;
+};
+
+
+export const addReviews = async (news, review) => {
+    const payload = {
+        news_id: news.id,
+        body: review
+    };
+
+    
+    const response = await axios.post(`${URL_NEWS_REVIEWS}add`, payload);
     return response.data;
 };
